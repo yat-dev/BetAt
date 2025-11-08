@@ -1,0 +1,1 @@
+global using BetAt.Domain.Enum;

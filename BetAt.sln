@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetAt.Api", "BetAt.Api\BetAt.Api.csproj", "{15702665-41CA-429D-A8E7-9BB324C06471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetAt.Application", "BetAt.Application\BetAt.Application.csproj", "{B11397B7-C986-4A4D-A58E-C0AC6ED08E76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetAt.Domain", "BetAt.Domain\BetAt.Domain.csproj", "{E2A0E8A4-C8EA-484E-909F-59A0E4A7DFC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetAt.Infrastructure", "BetAt.Infrastructure\BetAt.Infrastructure.csproj", "{799E3D91-4050-42B0-BE65-FABD059C198A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15702665-41CA-429D-A8E7-9BB324C06471}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15702665-41CA-429D-A8E7-9BB324C06471}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15702665-41CA-429D-A8E7-9BB324C06471}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15702665-41CA-429D-A8E7-9BB324C06471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B11397B7-C986-4A4D-A58E-C0AC6ED08E76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B11397B7-C986-4A4D-A58E-C0AC6ED08E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B11397B7-C986-4A4D-A58E-C0AC6ED08E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B11397B7-C986-4A4D-A58E-C0AC6ED08E76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2A0E8A4-C8EA-484E-909F-59A0E4A7DFC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2A0E8A4-C8EA-484E-909F-59A0E4A7DFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2A0E8A4-C8EA-484E-909F-59A0E4A7DFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2A0E8A4-C8EA-484E-909F-59A0E4A7DFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{799E3D91-4050-42B0-BE65-FABD059C198A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{799E3D91-4050-42B0-BE65-FABD059C198A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{799E3D91-4050-42B0-BE65-FABD059C198A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{799E3D91-4050-42B0-BE65-FABD059C198A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
