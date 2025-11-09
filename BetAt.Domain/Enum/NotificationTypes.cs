@@ -4,5 +4,7 @@ public enum NotificationTypes
 {
     MatchReminder,
     ResultAvailable,
-    LeagueInvite
+    LeagueInvite,
+    NewMember,
+    BetDeadLine
 }
