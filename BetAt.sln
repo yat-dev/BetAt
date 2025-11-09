@@ -8,6 +8,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetAt.Domain", "BetAt.Domai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetAt.Infrastructure", "BetAt.Infrastructure\BetAt.Infrastructure.csproj", "{799E3D91-4050-42B0-BE65-FABD059C198A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{098AFE0B-7C0B-4268-A695-9D8F5DE97C04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{B51136F2-91BD-4AC7-A627-7E788812C33D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.UnitTests", "Infrastructure.UnitTests\Infrastructure.UnitTests.csproj", "{072DC931-50B2-407F-B4FB-2B231CAE444B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +36,13 @@ Global
 		{799E3D91-4050-42B0-BE65-FABD059C198A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{799E3D91-4050-42B0-BE65-FABD059C198A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{799E3D91-4050-42B0-BE65-FABD059C198A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{072DC931-50B2-407F-B4FB-2B231CAE444B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{072DC931-50B2-407F-B4FB-2B231CAE444B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{072DC931-50B2-407F-B4FB-2B231CAE444B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{072DC931-50B2-407F-B4FB-2B231CAE444B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B51136F2-91BD-4AC7-A627-7E788812C33D} = {098AFE0B-7C0B-4268-A695-9D8F5DE97C04}
+		{072DC931-50B2-407F-B4FB-2B231CAE444B} = {B51136F2-91BD-4AC7-A627-7E788812C33D}
 	EndGlobalSection
 EndGlobal

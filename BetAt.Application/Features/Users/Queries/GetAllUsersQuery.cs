@@ -1,6 +1,5 @@
 namespace BetAt.Application.Features.Users.Queries;
 
-public class GetAllUsersQuery
+public class GetAllUsersQuery : IRequest<List<UserDto>>
 {
-    
 }

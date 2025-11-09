@@ -1,6 +1,2 @@
-namespace BetAt.Application;
-
-public class GlobalUsing
-{
-    
-}
+global using BetAt.Application.Dtos;
+global using MediatR;
