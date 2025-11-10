@@ -1,10 +1,12 @@
+using BetAt.Domain.Repositories;
+
 namespace Infrastructure.UnitTests.User;
 
 public class GetAllUsersTests
 {
-    private readonly UserRepository _repository;
+    private readonly IUserRepository _repository;
 
-    public GetAllUsersTests(UserRepository repository)
+    public GetAllUsersTests(IUserRepository repository)
     {
         _repository = repository;
     }

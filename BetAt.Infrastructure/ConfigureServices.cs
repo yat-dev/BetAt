@@ -1,3 +1,6 @@
+using BetAt.Domain.Repositories;
+using BetAt.Infrastructure.Repositories;
+using BetAt.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +14,9 @@ public static class ConfigureServices
             options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(BetAtDbContext).Assembly.FullName)));
+
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IAuthService, AuthService>();
         
         return services;
     }
