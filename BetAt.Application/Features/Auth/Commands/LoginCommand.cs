@@ -1,6 +1,4 @@
-using MediatR;
-
-namespace TodoApp.Application.Auth.Commands;
+namespace BetAt.Application.Features.Auth.Commands;
 
 public class LoginCommand : IRequest<AuthResponseDto>
 {

@@ -1,2 +1,8 @@
 global using BetAt.Domain.Entities;
 global using Microsoft.EntityFrameworkCore;
+global using BetAt.Domain.Services;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
+global using System.Text;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.IdentityModel.Tokens;
