@@ -9,7 +9,7 @@ namespace BetAt.Api.Controllers;
 public class AuthController(IMediator mediator) : ControllerBase
 {
     [HttpPost("login")]
-    public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginCommand command)
+    public async Task<ActionResult<AuthResponseDto>> LoginAsync([FromBody] LoginCommand command)
     {
         try
         {
@@ -28,7 +28,7 @@ public class AuthController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterCommand command)
+    public async Task<ActionResult<AuthResponseDto>> RegisterAsync([FromBody] RegisterCommand command)
     {
         try
         {

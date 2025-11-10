@@ -16,7 +16,10 @@ public static class ConfigureServices
                 b => b.MigrationsAssembly(typeof(BetAtDbContext).Assembly.FullName)));
 
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ILeagueRepository, LeagueRepository>();
+        services.AddScoped<ILeagueMemberRepository, LeagueMemberRepository>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
         
         return services;
     }
