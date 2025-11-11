@@ -36,6 +36,30 @@ public class BetAtDbContext : DbContext
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("NOW()");
             entity.Property(e => e.LastLoginAt).HasDefaultValueSql("NOW()");
         });
+        
+        builder.Entity<Team>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+                
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+                
+            entity.Property(e => e.ShortName)
+                .IsRequired()
+                .HasMaxLength(10);
+                
+            entity.HasIndex(e => e.Name);
+                
+            entity.Property(e => e.LogoUrl)
+                .HasMaxLength(500);
+                
+            entity.Property(e => e.Country)
+                .HasMaxLength(100);
+                
+            // Index sur ExternalApiId pour les recherches rapides
+            entity.HasIndex(e => e.ExternalApiId);
+        });
 
         builder.Entity<League>(entity =>
         {
@@ -83,14 +107,6 @@ public class BetAtDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
                 
-            entity.Property(e => e.HomeTeam)
-                .IsRequired()
-                .HasMaxLength(100);
-                
-            entity.Property(e => e.AwayTeam)
-                .IsRequired()
-                .HasMaxLength(100);
-                
             entity.Property(e => e.Competition)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -99,6 +115,21 @@ public class BetAtDbContext : DbContext
             entity.HasIndex(e => e.MatchDate);
                 
             entity.HasIndex(e => e.Status);
+                
+            // Index sur ExternalApiId
+            entity.HasIndex(e => e.ExternalApiId);
+                
+            // Relation avec HomeTeam
+            entity.HasOne(e => e.HomeTeam)
+                .WithMany(t => t.HomeMatches)
+                .HasForeignKey(e => e.HomeTeamId)
+                .OnDelete(DeleteBehavior.Restrict); // Empêche la suppression d'une équipe si elle a des matchs
+                
+            // Relation avec AwayTeam
+            entity.HasOne(e => e.AwayTeam)
+                .WithMany(t => t.AwayMatches)
+                .HasForeignKey(e => e.AwayTeamId)
+                .OnDelete(DeleteBehavior.Restrict);
         });
         
         builder.Entity<Bet>(entity =>

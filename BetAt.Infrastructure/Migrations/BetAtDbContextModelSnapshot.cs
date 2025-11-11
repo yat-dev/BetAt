@@ -200,10 +200,8 @@ namespace BetAt.Infrastructure.Migrations
                     b.Property<int?>("AwayScore")
                         .HasColumnType("integer");
 
-                    b.Property<string>("AwayTeam")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("AwayTeamId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Competition")
                         .IsRequired()
@@ -213,13 +211,14 @@ namespace BetAt.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("ExternalApiId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("HomeScore")
                         .HasColumnType("integer");
 
-                    b.Property<string>("HomeTeam")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("HomeTeamId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("MatchDate")
                         .HasColumnType("timestamp with time zone");
@@ -228,6 +227,12 @@ namespace BetAt.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AwayTeamId");
+
+                    b.HasIndex("ExternalApiId");
+
+                    b.HasIndex("HomeTeamId");
 
                     b.HasIndex("MatchDate");
 
@@ -270,6 +275,47 @@ namespace BetAt.Infrastructure.Migrations
                     b.HasIndex("UserId", "IsRead");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("BetAt.Domain.Entities.Team", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("ExternalApiId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("LogoUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("ShortName")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExternalApiId");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Team");
                 });
 
             modelBuilder.Entity("BetAt.Domain.Entities.User", b =>
@@ -388,6 +434,25 @@ namespace BetAt.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BetAt.Domain.Entities.Match", b =>
+                {
+                    b.HasOne("BetAt.Domain.Entities.Team", "AwayTeam")
+                        .WithMany("AwayMatches")
+                        .HasForeignKey("AwayTeamId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BetAt.Domain.Entities.Team", "HomeTeam")
+                        .WithMany("HomeMatches")
+                        .HasForeignKey("HomeTeamId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AwayTeam");
+
+                    b.Navigation("HomeTeam");
+                });
+
             modelBuilder.Entity("BetAt.Domain.Entities.Notification", b =>
                 {
                     b.HasOne("BetAt.Domain.Entities.User", "User")
@@ -411,6 +476,13 @@ namespace BetAt.Infrastructure.Migrations
             modelBuilder.Entity("BetAt.Domain.Entities.Match", b =>
                 {
                     b.Navigation("Bets");
+                });
+
+            modelBuilder.Entity("BetAt.Domain.Entities.Team", b =>
+                {
+                    b.Navigation("AwayMatches");
+
+                    b.Navigation("HomeMatches");
                 });
 
             modelBuilder.Entity("BetAt.Domain.Entities.User", b =>

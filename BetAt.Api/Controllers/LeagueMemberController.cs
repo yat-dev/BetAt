@@ -16,7 +16,7 @@ public class LeagueMemberController(ISender mediator) : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("userleagues")]
+    [HttpGet("leaguescount")]
     public async Task<ActionResult<int>> GetAllByUserAsync()
     {
         return await mediator.Send(new GetAllLeaguesMemberByUserIdQuery());
