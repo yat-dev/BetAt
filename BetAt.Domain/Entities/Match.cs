@@ -5,7 +5,7 @@ public class Match : BaseEntity
     public int HomeTeamId { get; set; }
     public int AwayTeamId { get; set; }
     public string Competition { get; set; } = string.Empty;
-    public DateTime MatchDate { get; set; }
+    public DateTimeOffset MatchDate { get; set; }
     public Status Status { get; set; } = Status.Scheduled;
     public int? HomeScore { get; set; }
     public int? AwayScore { get; set; }
