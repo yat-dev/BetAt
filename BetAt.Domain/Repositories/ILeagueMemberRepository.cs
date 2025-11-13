@@ -4,7 +4,7 @@ public interface ILeagueMemberRepository
 {
     Task<List<LeagueMember>> GetAllAsync();
     
-    Task<int> GetAllByUserIdAsync(int userId);
+    Task<int> GetCountByUserIdAsync(int userId);
     
     Task<int> GetAllPointsByUserIdAsync(int userId);
 }

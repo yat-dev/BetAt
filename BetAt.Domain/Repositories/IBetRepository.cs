@@ -1,0 +1,16 @@
+namespace BetAt.Domain.Repositories;
+
+public interface IBetRepository
+{
+    Task<List<Bet>> GetAllAsync();
+    
+    Task<List<Bet>> GetAllByUserIdAsync(int userId);
+    
+    Task<Bet?> GetByIdAsync(int id, int userId);
+    
+    Task<int> AddAsync(Bet bet);
+    
+    Task UpdateAsync(Bet bet);
+        
+    Task DeleteAsync(Bet bet);
+}

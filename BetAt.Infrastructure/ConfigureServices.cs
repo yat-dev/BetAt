@@ -1,7 +1,6 @@
 using BetAt.Domain.Repositories;
 using BetAt.Infrastructure.Repositories;
 using BetAt.Infrastructure.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BetAt.Infrastructure;
@@ -19,6 +18,7 @@ public static class ConfigureServices
         services.AddScoped<ILeagueRepository, LeagueRepository>();
         services.AddScoped<ILeagueMemberRepository, LeagueMemberRepository>();
         services.AddScoped<IMatchRepository, MatchRepository>();
+        services.AddScoped<IBetRepository, BetRepository>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         

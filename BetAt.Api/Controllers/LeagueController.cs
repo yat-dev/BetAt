@@ -16,6 +16,14 @@ public class LeagueController(ISender mediator) : ControllerBase
         return Ok(leagues);
     }
 
+    [HttpGet("allleaguesbyuser")]
+    public async Task<ActionResult<List<LeagueDto>>> GetAllByUserAsync()
+    {
+        var leagues = await mediator.Send(new GetAllLeaguesByUserQuery());
+        
+        return Ok(leagues);
+    }
+
     [HttpGet("{id}")]
     public async Task<ActionResult<LeagueDto>> GetByIdAsync(int id)
     {

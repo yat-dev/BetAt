@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 namespace BetAt.Infrastructure.Services;
 
 public class CurrentUserService(IHttpContextAccessor httpContextAccessor) : ICurrentUserService

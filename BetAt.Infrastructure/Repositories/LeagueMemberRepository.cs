@@ -9,7 +9,7 @@ public class LeagueMemberRepository(BetAtDbContext context) : ILeagueMemberRepos
         return await context.LeagueMembers.ToListAsync();
     }
 
-    public async Task<int> GetAllByUserIdAsync(int userId)
+    public async Task<int> GetCountByUserIdAsync(int userId)
     {
         return await context.LeagueMembers.Where(m => m.UserId == userId).CountAsync();
     }

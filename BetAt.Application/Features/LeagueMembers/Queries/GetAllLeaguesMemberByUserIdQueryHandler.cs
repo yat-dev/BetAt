@@ -6,6 +6,6 @@ public class GetAllLeaguesMemberByUserIdQueryHandler(ILeagueMemberRepository rep
 {
     public async Task<int> Handle(GetAllLeaguesMemberByUserIdQuery request, CancellationToken cancellationToken)
     {
-        return await repository.GetAllByUserIdAsync(userService.UserId);
+        return await repository.GetCountByUserIdAsync(userService.UserId);
     }
 }

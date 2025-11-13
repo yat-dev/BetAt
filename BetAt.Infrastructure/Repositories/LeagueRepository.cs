@@ -8,6 +8,16 @@ public class LeagueRepository(BetAtDbContext context) : ILeagueRepository
     {
         return await context.Leagues.ToListAsync();
     }
+    
+    public async Task<List<League>> GetAllByUserIdAsync(int userId)
+    {
+        var leagueMembers = await context.LeagueMembers
+            .Where(lm => lm.UserId == userId)
+            .Include(l => l.League)
+            .ToListAsync();
+        
+        return leagueMembers.Select(lm => lm.League).ToList();
+    }
 
     public async Task<League?> GetLeagueByIdAsync(int id)
     {
