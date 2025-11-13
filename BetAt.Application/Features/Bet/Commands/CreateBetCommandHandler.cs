@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace BetAt.Application.Features.Bet.Commands;
 
 public class CreateBetCommandHandler(IBetRepository repository, ICurrentUserService userService) : IRequestHandler<CreateBetCommand, int>

@@ -1,3 +1,4 @@
+using BetAt.Application.Mapping;
 using BetAt.Domain.Entities;
 using BetAt.Domain.Repositories;
 
@@ -9,15 +10,6 @@ public class GetAllLeaguesQueryHandler(ILeagueRepository repository, ICurrentUse
     {
         var leagues = await repository.GetAllLeaguesAsync();
 
-        return leagues.Select(l => new LeagueDto
-        {
-            Id = l.Id,
-            Name = l.Name,
-            Description = l.Description,
-            Code = l.Code,
-            CreatedById = l.CreatedById,
-            IsActive = l.IsActive,
-            CreatedAt = l.CreatedAt
-        }).ToList();
+        return leagues.Select(l => l.ToDto()).ToList();
     }
 }

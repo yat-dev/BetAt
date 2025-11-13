@@ -1,4 +1,5 @@
 using BetAt.Application.Dtos;
+using BetAt.Application.Features.Leagues.Commands;
 using BetAt.Application.Features.Leagues.Queries;
 
 namespace BetAt.Api.Controllers;
@@ -16,10 +17,10 @@ public class LeagueController(ISender mediator) : ControllerBase
         return Ok(leagues);
     }
 
-    [HttpGet("allleaguesbyuser")]
-    public async Task<ActionResult<List<LeagueDto>>> GetAllByUserAsync()
+    [HttpGet("myleagues")]
+    public async Task<ActionResult<List<LeagueDto>>> GetMyLeaguesAsync()
     {
-        var leagues = await mediator.Send(new GetAllLeaguesByUserQuery());
+        var leagues = await mediator.Send(new GetMyLeaguesQuery());
         
         return Ok(leagues);
     }
@@ -32,6 +33,22 @@ public class LeagueController(ISender mediator) : ControllerBase
         if (league == null)
             return NotFound($"League id {id} not found");
             
+        return Ok(league);
+    }
+
+    [HttpPost("create")]
+    public async Task<ActionResult<LeagueDto>> CreateAsync([FromBody]CreateLeagueCommand command)
+    {
+        var league = await mediator.Send(command);
+        
+        return Ok(league);
+    }
+
+    [HttpPost("join")]
+    public async Task<ActionResult<LeagueDto>> JoinAsync([FromBody] JoinLeagueCommand command)
+    {
+        var league = await mediator.Send(command);
+        
         return Ok(league);
     }
 }

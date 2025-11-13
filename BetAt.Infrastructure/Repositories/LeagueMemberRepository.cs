@@ -18,4 +18,27 @@ public class LeagueMemberRepository(BetAtDbContext context) : ILeagueMemberRepos
     {
         return await context.LeagueMembers.Where(m => m.UserId == userId).SumAsync(m => m.Points);
     }
+
+    public async Task<LeagueMember?> GetByUserAndLeagueAsync(int userId, int leagueId)
+    {
+        return await context.LeagueMembers.Where(m => m.UserId == userId && m.LeagueId == leagueId).FirstOrDefaultAsync();
+    }
+
+    public async Task<int> GetMembersCountAsync(int leagueId)
+    {
+        return await context.LeagueMembers.Where(m => m.LeagueId == leagueId).CountAsync();
+    }
+
+    public async Task<LeagueMember> AddAsync(LeagueMember leagueMember)
+    {
+        await context.LeagueMembers.AddAsync(leagueMember);
+        await context.SaveChangesAsync();
+        return leagueMember;
+    }
+    
+    public async Task DeleteAsync(LeagueMember leagueMember)
+    {
+        context.LeagueMembers.Remove(leagueMember);
+        await context.SaveChangesAsync();
+    }
 }

@@ -19,6 +19,7 @@ public static class ConfigureServices
         services.AddScoped<ILeagueMemberRepository, LeagueMemberRepository>();
         services.AddScoped<IMatchRepository, MatchRepository>();
         services.AddScoped<IBetRepository, BetRepository>();
+        services.AddScoped<IBetRuleRepository, BetRuleRepository>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         

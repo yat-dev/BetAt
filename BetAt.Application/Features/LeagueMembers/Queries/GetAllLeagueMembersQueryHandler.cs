@@ -15,7 +15,7 @@ public class GetAllLeagueMembersQueryHandler(ILeagueMemberRepository repository)
             LeagueId = lm.LeagueId,
             UserId = lm.UserId,
             JoinedAt = lm.JoinedAt,
-            Role = lm.Role,
+            MemberRole = lm.Role,
             Points = lm.Points,
             CreatedAt = lm.CreatedAt
         }).ToList();

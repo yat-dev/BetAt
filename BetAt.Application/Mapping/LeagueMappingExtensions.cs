@@ -10,9 +10,15 @@ public static class LeagueMappingExtensions
             Name = league.Name,
             Code = league.Code,
             CreatedAt = league.CreatedAt,
-            CreatedById = league.CreatedById,
             Description = league.Description,
-            IsActive = league.IsActive
+            IsActive = league.IsActive,
+            CreatedBy = new User
+            {
+                Username = league.CreatedBy.Username,
+                Email = league.CreatedBy.Email,
+                DisplayName = league.CreatedBy.DisplayName,
+                LastLoginAt = league.CreatedBy.LastLoginAt,
+            }
         };
     }
 }

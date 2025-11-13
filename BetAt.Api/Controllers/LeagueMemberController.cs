@@ -1,4 +1,5 @@
 using BetAt.Application.Dtos;
+using BetAt.Application.Features.LeagueMembers.Commands;
 using BetAt.Application.Features.LeagueMembers.Queries;
 
 namespace BetAt.Api.Controllers;
@@ -19,12 +20,27 @@ public class LeagueMemberController(ISender mediator) : ControllerBase
     [HttpGet("leaguescount")]
     public async Task<ActionResult<int>> GetAllByUserAsync()
     {
-        return await mediator.Send(new GetAllLeaguesMemberByUserIdQuery());
+        int response = await mediator.Send(new GetAllLeaguesMemberByUserIdQuery());
+        
+        return Ok(response);
     }
 
     [HttpGet("points")]
     public async Task<ActionResult<int>> GetAllPointsByUserAsync()
     {
-        return await mediator.Send(new GetAllLeagueMemberPointsByUserIdQuery());
+        int response = await mediator.Send(new GetAllLeagueMemberPointsByUserIdQuery());
+        
+        return Ok(response);
+    }
+
+    [HttpDelete("leave/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<NoContentResult> LeaveAsync([FromRoute] int id)
+    {
+        await mediator.Send(new DeleteLeagueMemberCommand { LeagueId = id });
+        
+        return NoContent();
     }
 }

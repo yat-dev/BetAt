@@ -1,6 +1,6 @@
 namespace BetAt.Domain.Enum;
 
-public enum Roles
+public enum MemberRole
 {
     Admin,
     Member

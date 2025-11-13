@@ -8,6 +8,7 @@ public class League : BaseEntity
     public int CreatedById { get; set; }
     public bool IsActive { get; set; } = true;
     
+    
     public User CreatedBy { get; set; } = null!;
     public ICollection<LeagueMember> Members { get; set; } = [];
     public ICollection<Bet> Bets { get; set; } = [];

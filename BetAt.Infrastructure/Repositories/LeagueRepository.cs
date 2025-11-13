@@ -9,7 +9,7 @@ public class LeagueRepository(BetAtDbContext context) : ILeagueRepository
         return await context.Leagues.ToListAsync();
     }
     
-    public async Task<List<League>> GetAllByUserIdAsync(int userId)
+    public async Task<List<League>> GetMyLeaguesAsync(int userId)
     {
         var leagueMembers = await context.LeagueMembers
             .Where(lm => lm.UserId == userId)
@@ -21,7 +21,13 @@ public class LeagueRepository(BetAtDbContext context) : ILeagueRepository
 
     public async Task<League?> GetLeagueByIdAsync(int id)
     {
-        return await context.Leagues.FindAsync(id);
+        return await context.Leagues
+            .Include(l => l.CreatedBy)
+            .Include(l => l.Members)
+                .ThenInclude(m => m.User)
+            .Include(l => l.BetRule)
+            .Include(l => l.Bets)
+            .FirstOrDefaultAsync(l => l.Id == id);
     }
 
     public async Task<League?> GetLeagueByNameAsync(string name)
@@ -33,4 +39,18 @@ public class LeagueRepository(BetAtDbContext context) : ILeagueRepository
     {
         return await context.Leagues.FirstOrDefaultAsync(x => x.Code == code);
     }
+
+    public Task<bool> CodeExistsAsync(string code)
+    {
+        return context.Leagues.AnyAsync(x => x.Code == code);
+    }
+
+    public async Task<League> AddAsync(League league)
+    {
+        context.Leagues.Add(league);
+        await context.SaveChangesAsync();
+        return league;
+    }
+
+
 }

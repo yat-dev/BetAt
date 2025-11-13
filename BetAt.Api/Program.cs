@@ -1,10 +1,3 @@
-using System.Text;
-using BetAt.Application;
-using BetAt.Infrastructure;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -110,5 +103,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.Run();

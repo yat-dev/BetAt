@@ -4,3 +4,4 @@ global using BetAt.Domain.Services;
 global using BetAt.Domain.Enum;
 global using BetAt.Domain.Entities;
 global using BetAt.Domain.Repositories;
+global using BetAt.Application.Dtos.Leagues;
