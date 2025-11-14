@@ -14,6 +14,7 @@ public class LeagueRepository(BetAtDbContext context) : ILeagueRepository
         var leagueMembers = await context.LeagueMembers
             .Where(lm => lm.UserId == userId)
             .Include(l => l.League)
+            .Include(l => l.User)
             .ToListAsync();
         
         return leagueMembers.Select(lm => lm.League).ToList();

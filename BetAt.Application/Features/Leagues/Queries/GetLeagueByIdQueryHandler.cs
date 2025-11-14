@@ -21,14 +21,7 @@ public class GetLeagueByIdQueryHandler(ILeagueRepository repository) : IRequestH
             Description = result.Description,
             Code = result.Code,
             IsActive = result.IsActive,
-            CreatedBy = new User
-            {
-                Id = result.CreatedById,
-                Username = result.CreatedBy.Username,
-                Email = result.CreatedBy.Email,
-                DisplayName = result.CreatedBy.DisplayName,
-                LastLoginAt = result.CreatedBy.LastLoginAt
-            }
+            CreatedById = result.CreatedById,
         };
     }
 }

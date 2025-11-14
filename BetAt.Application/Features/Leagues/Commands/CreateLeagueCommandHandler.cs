@@ -15,7 +15,7 @@ public class CreateLeagueCommandHandler(ILeagueRepository leagueRepository,
             Description = request.Description,
             CreatedById = currentUserService.UserId,
             IsActive = true,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
         };
         
         var createdLeague = await leagueRepository.AddAsync(league);
