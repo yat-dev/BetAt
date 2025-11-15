@@ -29,8 +29,8 @@ public class BetController(ISender mediator) : ControllerBase
     [HttpPost]
     public async Task<ActionResult<BetDto>> PlaceBet([FromBody] CreateBetCommand command)
     {
-        var betId = await mediator.Send(command);
+        var bet = await mediator.Send(command);
         
-        return Ok($"Pari créé id: {betId}");
+        return Ok(bet);
     }
 }

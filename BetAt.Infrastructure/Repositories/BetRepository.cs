@@ -28,11 +28,11 @@ public class BetRepository(BetAtDbContext context) : IBetRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task<int> AddAsync(Bet bet)
+    public async Task<Bet> AddAsync(Bet bet)
     {
         context.Bets.Add(bet);
         await context.SaveChangesAsync();
-        return bet.Id;
+        return bet;
     }
 
     public async Task UpdateAsync(Bet bet)

@@ -1,6 +1,6 @@
 namespace BetAt.Application.Features.Bet.Commands;
 
-public class CreateBetCommand : IRequest<int>
+public class CreateBetCommand : IRequest<CreateBetDto>
 {
     public int MatchId { get; set; }
     public int LeagueId { get; set; }

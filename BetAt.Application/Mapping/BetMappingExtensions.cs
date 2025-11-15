@@ -17,4 +17,17 @@ public static class BetMappingExtensions
             IsProcessed = bet.IsProcessed
         };
     }
+    
+    public static CreateBetDto ToCreateDto(this Bet bet)
+    {
+        return new CreateBetDto
+        {
+            Id = bet.Id,
+            UserId = bet.UserId,
+            MatchId = bet.MatchId,
+            LeagueId = bet.LeagueId,
+            PredictedHomeScore = bet.PredictedHomeScore,
+            PredictedAwayScore = bet.PredictedAwayScore
+        };
+    }
 }

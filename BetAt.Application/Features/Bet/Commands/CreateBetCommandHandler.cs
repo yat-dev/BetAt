@@ -1,8 +1,10 @@
+using BetAt.Application.Mapping;
+
 namespace BetAt.Application.Features.Bet.Commands;
 
-public class CreateBetCommandHandler(IBetRepository repository, ICurrentUserService userService) : IRequestHandler<CreateBetCommand, int>
+public class CreateBetCommandHandler(IBetRepository repository, ICurrentUserService userService) : IRequestHandler<CreateBetCommand, CreateBetDto>
 {
-    public async Task<int> Handle(CreateBetCommand request, CancellationToken cancellationToken)
+    public async Task<CreateBetDto> Handle(CreateBetCommand request, CancellationToken cancellationToken)
     {
         Domain.Entities.Bet bet = new Domain.Entities.Bet
         {
@@ -13,6 +15,8 @@ public class CreateBetCommandHandler(IBetRepository repository, ICurrentUserServ
             PredictedAwayScore = request.PredictedAwayScore
         };
         
-        return await repository.AddAsync(bet);
+        await repository.AddAsync(bet);
+
+        return bet.ToCreateDto();
     }
 }

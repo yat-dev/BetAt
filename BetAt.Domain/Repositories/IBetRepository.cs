@@ -8,7 +8,7 @@ public interface IBetRepository
     
     Task<Bet?> GetByIdAsync(int id, int userId);
     
-    Task<int> AddAsync(Bet bet);
+    Task<Bet> AddAsync(Bet bet);
     
     Task UpdateAsync(Bet bet);
         
