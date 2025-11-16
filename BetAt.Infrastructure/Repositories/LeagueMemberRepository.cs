@@ -6,7 +6,9 @@ public class LeagueMemberRepository(BetAtDbContext context) : ILeagueMemberRepos
 {
     public async Task<List<LeagueMember>> GetAllAsync()
     {
-        return await context.LeagueMembers.ToListAsync();
+        return await context.LeagueMembers
+                .Include(u => u.User)
+                .ToListAsync();
     }
 
     public async Task<int> GetCountByUserIdAsync(int userId)

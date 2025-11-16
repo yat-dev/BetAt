@@ -30,14 +30,24 @@ public class GetLeagueByIdQueryHandler(ILeagueRepository repository, ICurrentUse
             CreatedAt = league.CreatedAt,
             IsActive = league.IsActive,
             IsUserAdmin = isUserAdmin,
-            Members = league.Members.Select(m => new LeagueMemberDto
-            {
-                Id = m.Id,
-                UserId = m.UserId,
-                Points = m.Points
-            }).ToList(),
+            Members = league.Members
+                .OrderByDescending(m => m.Points)
+                .ThenBy(m => m.JoinedAt)
+                .Select(m => new LeagueMemberDto
+                {
+                    Id = m.Id,
+                    UserId = m.UserId,
+                    LeagueId = m.LeagueId,
+                    UserName = m.User.Username,
+                    Points = m.Points,
+                    DisplayName = m.User.DisplayName,
+                    JoinedAt = m.JoinedAt,
+                    MemberRole = m.Role,
+                    CreatedAt = m.CreatedAt
+                }).ToList(),
             BetRule = league.BetRule != null ? new BetRuleDto
             {
+                LeagueId = league.Id,
                 ExactScorePoints = league.BetRule.ExactScorePoints,
                 CorrectResultPoints = league.BetRule.CorrectResultPoints,
                 CorrectGoalDiffPoints = league.BetRule.CorrectGoalDiffPoints
