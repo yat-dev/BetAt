@@ -16,16 +16,19 @@ public class BetRepository(BetAtDbContext context) : IBetRepository
 
     public async Task<Bet?> GetByIdAsync(int matchId, int userId)
     {
-        return await context.Bets
+        var res = await context.Bets
             .Include(b => b.User)
             .Include(b => b.Match)
                 .ThenInclude(m => m.HomeTeam)
             .Include(b => b.Match)
                 .ThenInclude(m => m.AwayTeam)
             .Include(b => b.League)
+            .Include(b => b.Match.Venue)
             .Where(b => b.Match.Id == matchId)
             .Where(b => b.UserId == userId)
             .FirstOrDefaultAsync();
+
+        return res;
     }
 
     public async Task<Bet> AddAsync(Bet bet)
