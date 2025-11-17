@@ -212,5 +212,21 @@ public class BetAtDbContext : DbContext
             entity.HasIndex(e => new { e.UserId, e.IsRead });
             entity.HasIndex(e => e.CreatedAt);
         });
+
+        builder.Entity<Venue>(entity =>
+        {
+            entity.HasKey(v => v.Id);
+        
+            entity.Property(v => v.Name)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(v => v.City)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            entity.Property(v => v.Capacity)
+                .IsRequired();
+        });
     }
 }

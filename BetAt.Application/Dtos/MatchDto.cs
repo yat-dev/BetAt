@@ -1,3 +1,5 @@
+using BetAt.Application.Dtos.Venues;
+
 namespace BetAt.Application.Dtos;
 
 public class MatchDto
@@ -10,4 +12,5 @@ public class MatchDto
     public Status Status { get; set; } = Status.Scheduled;
     public int? HomeScore { get; set; }
     public int? AwayScore { get; set; }
+    public VenueDto? Venue { get; set; }
 }

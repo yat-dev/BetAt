@@ -1,3 +1,5 @@
+using BetAt.Application.Dtos.Venues;
+
 namespace BetAt.Application.Mapping;
 
 public static class MatchMappingExtensions
@@ -12,7 +14,16 @@ public static class MatchMappingExtensions
             Competition = match.Competition,
             MatchDate = match.MatchDate,
             HomeScore = match.HomeScore,
-            AwayScore = match.AwayScore
+            AwayScore = match.AwayScore,
+            Venue = new VenueDto
+            {
+                Id = match.Venue.Id,
+                Name = match.Venue.Name,
+                Capacity = match.Venue.Capacity,
+                Country = match.Venue.Country,
+                ImageUrl = match.Venue.ImageUrl,
+                City = match.Venue.City
+            },
         };
     }
 }

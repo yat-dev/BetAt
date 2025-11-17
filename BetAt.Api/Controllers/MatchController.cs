@@ -15,4 +15,12 @@ public class MatchController(ISender mediator) : ControllerBase
         
         return Ok(response);
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<MatchDto>> GetMatch(int id)
+    {
+        var response = await mediator.Send(new GetMatchByIdQuery(){Id = id});
+        
+        return Ok(response);
+    }
 }
