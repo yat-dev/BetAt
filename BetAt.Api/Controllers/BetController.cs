@@ -33,4 +33,18 @@ public class BetController(ISender mediator) : ControllerBase
         
         return Ok(bet);
     }
+
+    [HttpPut("update/{id}")]
+    public async Task<ActionResult<BetDto>> UpdateBet(int id, [FromBody] UpdateBetDto betDto)
+    {
+        
+        var bet = await mediator.Send(new UpdateBetCommand()
+        {
+            Id = id,
+            PredictedHomeScore = betDto.PredictedHomeScore,
+            PredictedAwayScore = betDto.PredictedAwayScore
+        });
+        
+        return Ok(bet);
+    }
 }

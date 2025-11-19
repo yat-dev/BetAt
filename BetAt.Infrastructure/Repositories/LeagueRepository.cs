@@ -27,7 +27,6 @@ public class LeagueRepository(BetAtDbContext context) : ILeagueRepository
             .Include(l => l.Members)
                 .ThenInclude(m => m.User)
             .Include(l => l.BetRule)
-            .Include(l => l.Bets)
             .FirstOrDefaultAsync(l => l.Id == id);
     }
 

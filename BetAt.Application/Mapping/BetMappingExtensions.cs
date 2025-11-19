@@ -14,7 +14,8 @@ public static class BetMappingExtensions
             PredictedAwayScore = bet.PredictedAwayScore,
             PointsEarned = bet.PointsEarned,
             PlacedAt = bet.PlacedAt,
-            IsProcessed = bet.IsProcessed
+            IsProcessed = bet.IsProcessed,
+            UpdatedAt = bet.UpdatedAt
         };
     }
     
