@@ -11,5 +11,4 @@ public class BetDto
     public int PointsEarned { get; set; }
     public DateTime PlacedAt { get; set; } = DateTime.UtcNow;
     public bool IsProcessed { get; set; }
-    public DateTime? UpdatedAt { get; set; } = DateTime.UtcNow;
 }

@@ -8,8 +8,7 @@ public class UpdateBetCommandHandler(IBetRepository repository) : IRequestHandle
         {
             Id = request.Id,
             PredictedHomeScore = request.PredictedHomeScore,
-            PredictedAwayScore = request.PredictedAwayScore,
-            UpdatedAt = DateTime.UtcNow
+            PredictedAwayScore = request.PredictedAwayScore
         };
 
         await repository.UpdateAsync(bet);

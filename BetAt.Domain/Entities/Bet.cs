@@ -14,5 +14,4 @@ public class Bet : BaseEntity
     public User User { get; set; } = null!;
     public Match Match { get; set; } = null!;
     public League League { get; set; } = null!;
-    public DateTime? UpdatedAt { get; set; }
 }

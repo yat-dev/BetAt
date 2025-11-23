@@ -16,3 +16,8 @@ global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.OpenApi.Models;
 global using BetAt.API.Models;
+global using Serilog;
+global using Serilog.Events;
+global using Serilog.Exceptions;
+global using Serilog.Formatting.Json;
+

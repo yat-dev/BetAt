@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using BetAt.Application.Features.Bet.Commands;
 
 namespace BetAt.Api.Controllers;

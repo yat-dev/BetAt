@@ -1,11 +1,14 @@
 using BetAt.Application.Mapping;
+using Microsoft.Extensions.Logging;
 
 namespace BetAt.Application.Features.Bet.Commands;
 
-public class CreateBetCommandHandler(IBetRepository repository, ICurrentUserService userService) : IRequestHandler<CreateBetCommand, CreateBetDto>
+public class CreateBetCommandHandler(IBetRepository repository, ICurrentUserService userService, ILogger<CreateBetCommandHandler> logger) : IRequestHandler<CreateBetCommand, CreateBetDto>
 {
     public async Task<CreateBetDto> Handle(CreateBetCommand request, CancellationToken cancellationToken)
     {
+        logger.LogInformation("Begin Create Bet");
+        
         Domain.Entities.Bet bet = new Domain.Entities.Bet
         {
             UserId = userService.UserId,
