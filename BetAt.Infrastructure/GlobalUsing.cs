@@ -8,3 +8,4 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.IdentityModel.Tokens;
 global using BetAt.Domain.Repositories;
 global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Logging;

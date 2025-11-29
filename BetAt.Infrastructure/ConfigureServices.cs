@@ -23,6 +23,12 @@ public static class ConfigureServices
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         
+        var jobsConfig = configuration.GetSection("BackgroundJobs:MatchResultProcessor");
+        if (jobsConfig["Enabled"]!.Equals("true"))
+        {
+            services.AddHostedService<MatchResultProcessorService>();
+        }
+        
         return services;
     }
 }

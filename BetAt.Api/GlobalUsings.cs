@@ -20,4 +20,5 @@ global using Serilog;
 global using Serilog.Events;
 global using Serilog.Exceptions;
 global using Serilog.Formatting.Json;
+global using BetAt.Application.Features.Auth.Commands;
 

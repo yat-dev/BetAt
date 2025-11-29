@@ -1,7 +1,3 @@
-using BetAt.Application.Dtos;
-using BetAt.Application.Features.Auth.Commands;
-using MediatR;
-
 namespace BetAt.Api.Controllers;
 
 [ApiController]

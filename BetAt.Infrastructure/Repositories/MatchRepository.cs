@@ -29,4 +29,10 @@ public class MatchRepository(BetAtDbContext context) : IMatchRepository
             .Include(m => m.Venue) // ← Ajouter cette ligne
             .FirstOrDefaultAsync(m => m.Id == id))!;
     }
+    
+    public async Task UpdateAsync(Match match)
+    {
+        context.Matches.Update(match);
+        await context.SaveChangesAsync();
+    }
 }

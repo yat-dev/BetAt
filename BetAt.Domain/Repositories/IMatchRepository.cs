@@ -7,4 +7,6 @@ public interface IMatchRepository
     Task<List<Match>> GetAllUpcomingAsync(int days);
     
     Task<Match> GetByIdAsync(int id);
+
+    Task UpdateAsync(Match match);
 }

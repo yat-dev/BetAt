@@ -5,6 +5,8 @@ public interface IBetRepository
     Task<List<Bet>> GetAllAsync();
     
     Task<List<Bet>> GetAllByUserIdAsync(int userId);
+
+    Task<List<Bet>> GetAllByMatchIdAsync(int matchId);
     
     Task<Bet?> GetByIdAsync(int id, int userId);
     

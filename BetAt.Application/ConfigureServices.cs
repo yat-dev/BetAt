@@ -1,7 +1,3 @@
-using System.Reflection;
-using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace BetAt.Application;
 
 public static class ConfigureServices
@@ -10,6 +6,8 @@ public static class ConfigureServices
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        
+        services.AddScoped<IPointsCalculationService, PointsCalculationService>();
 
         return services;
     }

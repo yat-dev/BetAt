@@ -13,6 +13,11 @@ public class BetRepository(BetAtDbContext context) : IBetRepository
     {
         return await context.Bets.Where(b => b.UserId == userId).ToListAsync();
     }
+    
+    public async Task<List<Bet>> GetAllByMatchIdAsync(int matchId)
+    {
+        return await context.Bets.Where(b => b.MatchId == matchId).ToListAsync();
+    }
 
     public async Task<Bet?> GetByIdAsync(int matchId, int userId)
     {
