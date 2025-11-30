@@ -13,6 +13,8 @@ public interface ILeagueMemberRepository
     Task<int> GetMembersCountAsync(int leagueId);
     
     Task<LeagueMember> AddAsync(LeagueMember leagueMember);
+
+    Task UpdateAsync(LeagueMember leagueMember);
     
     Task DeleteAsync(LeagueMember leagueMember);
 }

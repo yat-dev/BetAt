@@ -3,6 +3,7 @@ namespace BetAt.Application.Features.Bet.Commands;
 public class CalculateMatchPointsCommandHandler(
     IMatchRepository matchRepository, 
     IBetRepository betRepository,
+    ILeagueMemberRepository leagueMemberRepository,
     IPointsCalculationService pointsCalculationService,
     ILogger<CalculateMatchPointsCommandHandler> logger)
     : IRequestHandler<CalculateMatchPointsCommand, CalculateMatchPointsResultDto>
@@ -49,19 +50,28 @@ public class CalculateMatchPointsCommandHandler(
 
             await betRepository.UpdateAsync(bet);
             
-            // result.BetsUpdated.Add(new BetPointsDto
-            // {
-            //     BetId = bet.Id,
-            //     UserId = bet.UserId,
-            //     Points = points
-            // });
+            if (points > 0)
+            {
+                var leagueMember = await leagueMemberRepository.GetByUserAndLeagueAsync(bet.UserId, bet.LeagueId);
+
+                if (leagueMember == null)
+                    throw new NotFoundException(nameof(leagueMember));
+                    
+                await leagueMemberRepository.UpdateAsync(new LeagueMember
+                {
+                    LeagueId = leagueMember.LeagueId,
+                    UserId = leagueMember.UserId,
+                    JoinedAt = leagueMember.JoinedAt,
+                    Role = leagueMember.Role,
+                    Points = leagueMember.Points + points
+                });
+            }
 
             logger.LogDebug("✅ Pari {BetId} - User {UserId} : {Points} points", 
                 bet.Id, bet.UserId, points);
         }
         
         match.PointsCalculated = true;
-        
         await matchRepository.UpdateAsync(match);
         
         logger.LogInformation("✅ Points calculés avec succès pour {BetsCount} paris sur le match {MatchId}", bets.Count, request.MatchId);

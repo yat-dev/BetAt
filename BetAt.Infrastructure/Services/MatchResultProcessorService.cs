@@ -2,7 +2,6 @@ using BetAt.Application.Features.Bet.Commands;
 using BetAt.Domain.Enum;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using MediatR;
 
 namespace BetAt.Infrastructure.Services;
@@ -13,29 +12,36 @@ public class MatchResultProcessorService(IServiceProvider serviceProvider, ILogg
     
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var intervalMinutesSettings = configuration.GetSection("BackgroundJobs:MatchResultProcessor");
-        var intervalMinutes = long.Parse(intervalMinutesSettings["IntervalMinutes"]!);
-        _interval = TimeSpan.FromMinutes(intervalMinutes);
-        
-        await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
-        
-        logger.LogInformation("🚀 MatchResultProcessorService démarré - Intervalle: {Interval}", _interval);
-        
-        while (!stoppingToken.IsCancellationRequested)
+        try
         {
-            try
-            {
-                await ProcessFinishedMatches(stoppingToken);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "❌ Erreur lors du traitement des matchs terminés");
-            }
-            
-            await Task.Delay(_interval, stoppingToken);
-        }
+            var intervalMinutesSettings = configuration.GetSection("BackgroundJobs:MatchResultProcessor");
+            var intervalMinutes = long.Parse(intervalMinutesSettings["IntervalMinutes"]!);
+            _interval = TimeSpan.FromMinutes(intervalMinutes);
 
-        logger.LogInformation("🛑 MatchResultProcessorService arrêté");
+            await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+
+            logger.LogInformation("🚀 MatchResultProcessorService démarré - Intervalle: {Interval}", _interval);
+
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    await ProcessFinishedMatches(stoppingToken);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "❌ Erreur lors du traitement des matchs terminés");
+                }
+
+                await Task.Delay(_interval, stoppingToken);
+            }
+
+            logger.LogInformation("🛑 MatchResultProcessorService arrêté");
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "❌ Erreur lors du traitement");
+        }
     }
 
     private async Task ProcessFinishedMatches(CancellationToken cancellationToken)

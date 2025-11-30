@@ -33,9 +33,15 @@ public class LeagueMemberRepository(BetAtDbContext context) : ILeagueMemberRepos
 
     public async Task<LeagueMember> AddAsync(LeagueMember leagueMember)
     {
-        await context.LeagueMembers.AddAsync(leagueMember);
+        context.LeagueMembers.AddAsync(leagueMember);
         await context.SaveChangesAsync();
         return leagueMember;
+    }
+
+    public async Task UpdateAsync(LeagueMember leagueMember)
+    {
+        context.LeagueMembers.Update(leagueMember);
+        await context.SaveChangesAsync();
     }
     
     public async Task DeleteAsync(LeagueMember leagueMember)
