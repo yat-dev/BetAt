@@ -53,7 +53,8 @@ public class MatchResultProcessorService(IServiceProvider serviceProvider, ILogg
         var finishedMatches = await context.Matches
             .Where(m => m.Status == Status.Finished 
                         && m.HomeScore != null 
-                        && m.AwayScore != null)
+                        && m.AwayScore != null
+                        && m.PointsCalculated == false)
             .OrderBy(m => m.MatchDate) // Traiter les plus anciens en premier
             .Take(10) // Max 10 matchs à la fois (éviter de surcharger)
             .ToListAsync(cancellationToken);

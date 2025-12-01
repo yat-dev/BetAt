@@ -52,19 +52,7 @@ public class CalculateMatchPointsCommandHandler(
             
             if (points > 0)
             {
-                var leagueMember = await leagueMemberRepository.GetByUserAndLeagueAsync(bet.UserId, bet.LeagueId);
-
-                if (leagueMember == null)
-                    throw new NotFoundException(nameof(leagueMember));
-                    
-                await leagueMemberRepository.UpdateAsync(new LeagueMember
-                {
-                    LeagueId = leagueMember.LeagueId,
-                    UserId = leagueMember.UserId,
-                    JoinedAt = leagueMember.JoinedAt,
-                    Role = leagueMember.Role,
-                    Points = leagueMember.Points + points
-                });
+                await leagueMemberRepository.UpdatePointsAsync(bet.LeagueId, bet.UserId, points);
             }
 
             logger.LogDebug("✅ Pari {BetId} - User {UserId} : {Points} points", 

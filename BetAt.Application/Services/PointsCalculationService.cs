@@ -25,7 +25,9 @@ public class PointsCalculationService(ILogger<PointsCalculationService> logger) 
         var predictedGoalDifference = predictedHomeScore - predictedAwayScore;
         var actualGoalDifference = actualHomeScore - actualAwayScore;
 
-        if (predictedGoalDifference == actualGoalDifference)
+        bool isDraw = actualHomeScore - actualAwayScore == 0;
+        
+        if (predictedGoalDifference == actualGoalDifference && isDraw == false)
         {
             points += 1;
             logger.LogDebug("✅ Bonne différence de buts : +1 point");

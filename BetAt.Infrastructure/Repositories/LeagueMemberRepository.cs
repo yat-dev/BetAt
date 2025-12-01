@@ -2,7 +2,7 @@ using BetAt.Domain.Repositories;
 
 namespace BetAt.Infrastructure.Repositories;
 
-public class LeagueMemberRepository(BetAtDbContext context) : ILeagueMemberRepository
+public class LeagueMemberRepository(BetAtDbContext context, ILogger<LeagueMemberRepository> logger) : ILeagueMemberRepository
 {
     public async Task<List<LeagueMember>> GetAllAsync()
     {
@@ -38,8 +38,20 @@ public class LeagueMemberRepository(BetAtDbContext context) : ILeagueMemberRepos
         return leagueMember;
     }
 
-    public async Task UpdateAsync(LeagueMember leagueMember)
+    public async Task UpdatePointsAsync(int leagueId, int userId, int points)
     {
+        var leagueMember = await context.LeagueMembers
+            .FirstOrDefaultAsync(lm => lm.LeagueId == leagueId && lm.UserId == userId);
+        
+        if (leagueMember == null)
+        {
+            logger.LogWarning("⚠️ LeagueMember non trouvé - LeagueId={LeagueId}, UserId={UserId}",
+                leagueId, userId);
+            return;
+        }
+        
+        leagueMember.Points += points;
+        
         context.LeagueMembers.Update(leagueMember);
         await context.SaveChangesAsync();
     }

@@ -14,7 +14,7 @@ public interface ILeagueMemberRepository
     
     Task<LeagueMember> AddAsync(LeagueMember leagueMember);
 
-    Task UpdateAsync(LeagueMember leagueMember);
+    Task UpdatePointsAsync(int leagueId, int userId, int points);
     
     Task DeleteAsync(LeagueMember leagueMember);
 }
