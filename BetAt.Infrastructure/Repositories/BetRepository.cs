@@ -11,7 +11,15 @@ public class BetRepository(BetAtDbContext context) : IBetRepository
 
     public async Task<List<Bet>> GetAllByUserIdAsync(int userId)
     {
-        return await context.Bets.Where(b => b.UserId == userId).ToListAsync();
+        return await context.Bets
+            .Include(b => b.Match)
+                .ThenInclude(m => m.Venue)
+            .Include(b => b.Match)
+                .ThenInclude(m => m.HomeTeam)
+            .Include(b => b.Match)
+                .ThenInclude(m => m.AwayTeam)            
+            .Include(b => b.League)
+            .Where(b => b.UserId == userId).ToListAsync();
     }
     
     public async Task<List<Bet>> GetAllByMatchIdAsync(int matchId)

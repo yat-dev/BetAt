@@ -26,6 +26,7 @@ public static class MatchMappingExtensions
                     ImageUrl = match.Venue.ImageUrl,
                     City = match.Venue.City
                 },
+                Status = match.Status
             };
         else
             throw new BadRequestException($"Match {match.Id} has no venues");

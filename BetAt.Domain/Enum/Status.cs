@@ -5,5 +5,6 @@ public enum Status
     Scheduled,
     Live,
     Finished,
-    Canceled
+    Canceled,
+    PostPoned
 }

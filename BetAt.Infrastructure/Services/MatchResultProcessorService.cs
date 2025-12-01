@@ -15,6 +15,11 @@ public class MatchResultProcessorService(IServiceProvider serviceProvider, ILogg
         try
         {
             var intervalMinutesSettings = configuration.GetSection("BackgroundJobs:MatchResultProcessor");
+            var isActive = bool.Parse(intervalMinutesSettings["IsActive"]!);
+            
+            if (isActive == false)
+                return;
+            
             var intervalMinutes = long.Parse(intervalMinutesSettings["IntervalMinutes"]!);
             _interval = TimeSpan.FromMinutes(intervalMinutes);
 
