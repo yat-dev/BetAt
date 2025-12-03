@@ -1,6 +1,6 @@
 namespace BetAt.Domain.Enum;
 
-public enum Status
+public enum MatchStatus
 {
     Scheduled,
     Live,

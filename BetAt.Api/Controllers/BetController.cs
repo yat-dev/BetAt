@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using BetAt.Application.Features.Bet.Commands;
+using BetAt.Domain.Enum;
 
 namespace BetAt.Api.Controllers;
 
@@ -12,6 +13,18 @@ public class BetController(ISender mediator) : ControllerBase
     public async Task<ActionResult<List<BetDto>>> Get()
     {
         var bets = await mediator.Send(new GetAllBetsByUserIdQuery());
+        
+        return Ok(bets);
+    }
+
+    [HttpGet("my-bets")]
+    public async Task<ActionResult<List<BetDto>>> Get([FromQuery] int? leagueId, [FromQuery] BetStatus status = BetStatus.All)
+    {
+        var bets = await mediator.Send(new GetAllUserBetsByLeagueAndStatusQuery
+        {
+            LeagueId = leagueId,
+            Status = status
+        });
         
         return Ok(bets);
     }

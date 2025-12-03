@@ -1,3 +1,4 @@
+using BetAt.Domain.Enum;
 using BetAt.Infrastructure;
 
 namespace BetAt.Infrastructure.Repositories;
@@ -7,6 +8,24 @@ public class BetRepository(BetAtDbContext context) : IBetRepository
     public async Task<List<Bet>> GetAllAsync()
     {
         return await context.Bets.ToListAsync();
+    }
+
+    public async Task<List<Bet>> GetAllByLeagueIdAndStatusAsync(int userId, int? leagueId, BetStatus status)
+    {
+        return await context.Bets
+            .Include(b => b.Match)
+                .ThenInclude(m => m.HomeTeam)
+            .Include(b => b.Match)
+                .ThenInclude(m => m.AwayTeam)
+            .Include(b => b.Match)
+                .ThenInclude(b => b.Venue)
+            .Include(b => b.League)
+            .Where(b => b.UserId == userId)
+            .Where(b => !leagueId.HasValue || b.LeagueId == leagueId.Value)
+            .Where(b => status == BetStatus.All || 
+                        (status == BetStatus.Finished && b.IsProcessed) ||
+                        (status == BetStatus.Pending && !b.IsProcessed))
+            .ToListAsync();
     }
 
     public async Task<List<Bet>> GetAllByUserIdAsync(int userId)

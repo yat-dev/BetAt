@@ -56,7 +56,7 @@ public class MatchResultProcessorService(IServiceProvider serviceProvider, ILogg
         var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
         
         var finishedMatches = await context.Matches
-            .Where(m => m.Status == Status.Finished 
+            .Where(m => m.Status == MatchStatus.Finished 
                         && m.HomeScore != null 
                         && m.AwayScore != null
                         && m.PointsCalculated == false)

@@ -15,7 +15,7 @@ public class MatchRepository(BetAtDbContext context) : IMatchRepository
         return await context.Matches
             .Include(m => m.HomeTeam)
             .Include(m => m.AwayTeam)
-            .Where(m => m.Status == Status.Scheduled)
+            .Where(m => m.Status == MatchStatus.Scheduled)
             .Where(m => m.MatchDate > DateTimeOffset.UtcNow && m.MatchDate < DateTimeOffset.UtcNow.AddDays(days))
             .OrderBy(m => m.MatchDate)
             .ToListAsync();

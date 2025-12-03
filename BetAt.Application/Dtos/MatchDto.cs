@@ -9,7 +9,7 @@ public class MatchDto
     public TeamDto AwayTeam { get; set; } = null!;
     public string Competition { get; set; } = string.Empty;
     public DateTimeOffset MatchDate { get; set; }
-    public Status Status { get; set; } = Status.Scheduled;
+    public MatchStatus MatchStatus { get; set; } = MatchStatus.Scheduled;
     public int? HomeScore { get; set; }
     public int? AwayScore { get; set; }
     public VenueDto? Venue { get; set; }

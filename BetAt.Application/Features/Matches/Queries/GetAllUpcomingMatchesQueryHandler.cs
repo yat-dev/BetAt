@@ -29,7 +29,7 @@ public class GetAllUpcomingMatchesQueryHandler(IMatchRepository repository) : IR
             },
             Competition = m.Competition,
             MatchDate = m.MatchDate,
-            Status = m.Status,
+            MatchStatus = m.Status,
             HomeScore = m.HomeScore,
             AwayScore = m.AwayScore
         }).ToList();

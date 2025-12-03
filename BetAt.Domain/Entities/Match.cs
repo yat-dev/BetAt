@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace BetAt.Domain.Entities;
 
 public class Match : BaseEntity
@@ -6,7 +8,7 @@ public class Match : BaseEntity
     public int AwayTeamId { get; set; }
     public string Competition { get; set; } = string.Empty;
     public DateTimeOffset MatchDate { get; set; }
-    public Status Status { get; set; } = Status.Scheduled;
+    public MatchStatus Status { get; set; } = MatchStatus.Scheduled;
     public int? HomeScore { get; set; }
     public int? AwayScore { get; set; }
     public int? ExternalApiId { get; set; }
