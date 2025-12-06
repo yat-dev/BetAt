@@ -11,3 +11,4 @@ global using System.Reflection;
 global using BetAt.Application.Services;
 global using FluentValidation;
 global using Microsoft.Extensions.DependencyInjection;
+global using BetAt.Application.Dtos.Bets;
