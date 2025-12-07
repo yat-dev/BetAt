@@ -35,6 +35,16 @@ public class LeagueController(ISender mediator) : ControllerBase
             
         return Ok(league);
     }
+    
+    [HttpGet("{id}/member-stats")]
+    public async Task<ActionResult<List<LeagueMemberStatsDto>>> GetLeagueMemberStats(int id)
+    {
+        var query = new GetLeagueMemberStatsQuery { LeagueId = id };
+        
+        var stats = await mediator.Send(query);
+        
+        return Ok(stats);
+    }
 
     [HttpPost("create")]
     public async Task<ActionResult<LeagueDto>> CreateAsync([FromBody]CreateLeagueCommand command)
