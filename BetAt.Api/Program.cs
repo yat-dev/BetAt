@@ -47,6 +47,43 @@ try
     Log.Information("Environment: {Environment}", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production");
     
     var builder = WebApplication.CreateBuilder(args);
+    
+    var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+    string? connectionString = null;
+
+    var tempLogger = LoggerFactory.Create(config => config.AddConsole()).CreateLogger<Program>();
+
+    tempLogger.LogInformation($"🔍 DATABASE_URL brut: {databaseUrl}");
+
+    if (!string.IsNullOrEmpty(databaseUrl))
+    {
+        try
+        {
+            var uri = new Uri(databaseUrl);
+            var username = uri.UserInfo.Split(':')[0];
+            var password = uri.UserInfo.Split(':')[1];
+            var database = uri.AbsolutePath.TrimStart('/');
+        
+            connectionString = $"Host={uri.Host};Port={uri.Port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+        
+            tempLogger.LogInformation($"✅ Connection string convertie: {connectionString}");
+        }
+        catch (Exception ex)
+        {
+            tempLogger.LogError($"❌ Erreur conversion: {ex.Message}");
+            throw;
+        }
+    }
+    else
+    {
+        connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        tempLogger.LogInformation($"✅ Connection string depuis config: {connectionString}");
+    }
+
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("❌ Aucune connection string trouvée !");
+    }
 
     // ========================================
     // Enregistrer Serilog (AVANT tous les autres services)
