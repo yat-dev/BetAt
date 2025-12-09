@@ -29,6 +29,7 @@ public class GetLeagueMemberStatsQueryHandler(ILeagueRepository leagueRepository
             var correctGoalDifferences = processedBets.Count(b => b.PointsEarned == league.BetRule?.CorrectGoalDiffPoints);
             
             var lastResults = processedBets
+                .OrderByDescending(b => b.Match.MatchDate)
                 .Take(5)
                 .Select(b => new BetResultDto
                 {
@@ -47,7 +48,7 @@ public class GetLeagueMemberStatsQueryHandler(ILeagueRepository leagueRepository
             
             var previousRank = currentRank; // À implémenter avec un système d'historique
             var rankChange = previousRank - currentRank;
-            var isNew = totalBets <= 3; // Considéré comme nouveau si moins de 3 paris
+            var isNew = totalBets <= 1; // Considéré comme nouveau si moins de 1 pari
             
             memberStats.Add(new LeagueMemberStatsDto
             {
@@ -61,7 +62,7 @@ public class GetLeagueMemberStatsQueryHandler(ILeagueRepository leagueRepository
                 TotalBets = totalBets,
                 WonBets = wonBets,
                 LostBets = lostBets,
-                WinRate = Math.Round(winRate, 1),
+                WinRate = Math.Round(winRate, 0),
                 AveragePoints = Math.Round(averagePoints, 1),
                 LastResults = lastResults,
                 CurrentStreak = currentStreak,
@@ -77,7 +78,7 @@ public class GetLeagueMemberStatsQueryHandler(ILeagueRepository leagueRepository
     
     private (int streak, bool isWin) CalculateCurrentStreak(List<Domain.Entities.Bet> bets)
     {
-        if (!bets.Any()) return (0, false);
+        if (bets.Any() == false) return (0, false);
 
         var streak = 0;
         var firstBet = bets.First();
