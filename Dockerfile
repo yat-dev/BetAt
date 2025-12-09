@@ -20,12 +20,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "BetAt.Api.dll"]
-```
-
-Ajoute aussi un fichier `.dockerignore` à la racine :
-```
-**/bin/
-**/obj/
-**/.vs/
-**/.vscode/
-**/node_modules/
