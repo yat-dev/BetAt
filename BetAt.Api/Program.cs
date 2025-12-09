@@ -210,9 +210,19 @@ try
     
     using (var scope = app.Services.CreateScope())
     {
-        var db = scope.ServiceProvider.GetRequiredService<BetAtDbContext>();
-        db.Database.Migrate();
+        var services = scope.ServiceProvider;
+        try
+        {
+            var context = services.GetRequiredService<BetAtDbContext>();
+            context.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "Une erreur est survenue lors de la migration de la base de données");
+        }
     }
+
     
     app.Run();
 }
