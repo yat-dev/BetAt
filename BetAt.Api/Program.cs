@@ -1,6 +1,9 @@
 // ========================================
 // Configuration Serilog AVANT le builder
 // ========================================
+
+using Microsoft.EntityFrameworkCore;
+
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -203,6 +206,13 @@ try
 
     Log.Information("✅ BetAt API démarrée avec succès");
     Log.Information("🌐 L'API écoute sur {Urls}", string.Join(", ", app.Urls));
+    
+    
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = scope.ServiceProvider.GetRequiredService<BetAtDbContext>();
+        db.Database.Migrate();
+    }
     
     app.Run();
 }
