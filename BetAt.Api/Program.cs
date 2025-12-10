@@ -23,7 +23,8 @@ Log.Logger = new LoggerConfiguration()
         path: "logs/betat-.log",
         rollingInterval: RollingInterval.Day,
         retainedFileCountLimit: 30,
-        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {SourceContext} {Message:lj} {Properties:j}{NewLine}{Exception}",
+        outputTemplate:
+        "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {SourceContext} {Message:lj} {Properties:j}{NewLine}{Exception}",
         restrictedToMinimumLevel: LogEventLevel.Debug)
     .WriteTo.File(
         new JsonFormatter(),
@@ -35,7 +36,8 @@ Log.Logger = new LoggerConfiguration()
         path: "logs/betat-errors-.log",
         rollingInterval: RollingInterval.Day,
         retainedFileCountLimit: 90,
-        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {SourceContext} {Message:lj} {Properties:j}{NewLine}{Exception}",
+        outputTemplate:
+        "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {SourceContext} {Message:lj} {Properties:j}{NewLine}{Exception}",
         restrictedToMinimumLevel: LogEventLevel.Warning)
     // Décommenter pour utiliser Seq (après l'avoir installé avec Docker)
     // .WriteTo.Seq("http://localhost:5341")
@@ -44,10 +46,11 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     Log.Information("🚀 Démarrage de BetAt API");
-    Log.Information("Environment: {Environment}", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production");
-    
+    Log.Information("Environment: {Environment}",
+        Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production");
+
     var builder = WebApplication.CreateBuilder(args);
-    
+
     var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
     string? connectionString = null;
 
@@ -63,9 +66,10 @@ try
             var username = uri.UserInfo.Split(':')[0];
             var password = uri.UserInfo.Split(':')[1];
             var database = uri.AbsolutePath.TrimStart('/');
-        
-            connectionString = $"Host={uri.Host};Port={uri.Port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
-        
+
+            connectionString =
+                $"Host={uri.Host};Port={uri.Port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true";
+
             tempLogger.LogInformation($"✅ Connection string convertie: {connectionString}");
         }
         catch (Exception ex)
@@ -149,7 +153,8 @@ try
         // JWT Authentication in Swagger
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
-            Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token",
+            Description =
+                "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token",
             Name = "Authorization",
             In = ParameterLocation.Header,
             Type = SecuritySchemeType.ApiKey,
@@ -183,17 +188,17 @@ try
     app.UseSerilogRequestLogging(options =>
     {
         options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
-        
+
         options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
         {
             diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
             diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
             diagnosticContext.Set("RemoteIP", httpContext.Connection.RemoteIpAddress);
             diagnosticContext.Set("UserAgent", httpContext.Request.Headers["User-Agent"].ToString());
-            
+
             if (httpContext.User.Identity?.IsAuthenticated == true)
             {
-                var userId = httpContext.User.FindFirst("sub")?.Value 
+                var userId = httpContext.User.FindFirst("sub")?.Value
                              ?? httpContext.User.FindFirst("userId")?.Value;
                 if (userId != null)
                 {
@@ -205,13 +210,13 @@ try
         options.GetLevel = (httpContext, elapsed, ex) =>
         {
             if (ex != null) return LogEventLevel.Error;
-            
+
             var statusCode = httpContext.Response.StatusCode;
-            
+
             if (statusCode >= 500) return LogEventLevel.Error;
             if (statusCode >= 400) return LogEventLevel.Warning;
             if (elapsed > 5000) return LogEventLevel.Warning;
-            
+
             return LogEventLevel.Information;
         };
     });
@@ -219,15 +224,23 @@ try
     // ========================================
     // Configuration du pipeline HTTP
     // ========================================
+    // if (app.Environment.IsDevelopment())
+    // {
+    //     app.UseSwagger();
+    //     app.UseSwaggerUI(c => 
+    //     { 
+    //         c.SwaggerEndpoint("/swagger/v1/swagger.json", "BetAt API V1"); 
+    //     });
+    //     app.MapOpenApi();
+    //     Log.Information("📚 Swagger UI disponible sur /swagger");
+    // }
+    app.UseSwagger();
+    app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "BetAt API V1"); });
+    Log.Information("📚 Swagger UI disponible sur /swagger");
+
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseSwaggerUI(c => 
-        { 
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "BetAt API V1"); 
-        });
         app.MapOpenApi();
-        Log.Information("📚 Swagger UI disponible sur /swagger");
     }
 
     // Middleware d'exception globale (AVANT les autres middlewares)
@@ -243,8 +256,8 @@ try
 
     Log.Information("✅ BetAt API démarrée avec succès");
     Log.Information("🌐 L'API écoute sur {Urls}", string.Join(", ", app.Urls));
-    
-    
+
+
     using (var scope = app.Services.CreateScope())
     {
         var services = scope.ServiceProvider;
@@ -260,7 +273,7 @@ try
         }
     }
 
-    
+
     app.Run();
 }
 catch (Exception ex)
