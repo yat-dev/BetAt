@@ -95,7 +95,7 @@ try
     // ========================================
     builder.Services.AddOpenApi();
     builder.Services.AddApplication();
-    builder.Services.AddInfrastructure(builder.Configuration);
+    builder.Services.AddInfrastructure(builder.Configuration, connectionString);
     builder.Services.AddHttpContextAccessor();
 
     builder.Services.AddControllers();

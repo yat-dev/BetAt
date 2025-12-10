@@ -1,4 +1,3 @@
-using BetAt.Domain.Repositories;
 using BetAt.Infrastructure.Repositories;
 using BetAt.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,11 +6,13 @@ namespace BetAt.Infrastructure;
 
 public static class ConfigureServices
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, string? connectionString = null)
     {
+        var dbConnectionString = connectionString ?? configuration.GetConnectionString("DefaultConnection");
+        
         services.AddDbContext<BetAtDbContext>(options =>
             options.UseNpgsql(
-                configuration.GetConnectionString("DefaultConnection"),
+                dbConnectionString,
                 b => b.MigrationsAssembly(typeof(BetAtDbContext).Assembly.FullName)));
 
         services.AddScoped<IUserRepository, UserRepository>();
