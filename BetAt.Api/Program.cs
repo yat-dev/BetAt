@@ -108,7 +108,17 @@ try
     {
         options.AddPolicy("AllowBetAtApp", policy =>
         {
-            policy.WithOrigins("http://localhost:4200", "http://localhost:3000")
+            policy.WithOrigins(
+                    "http://localhost:4200", 
+                    "http://localhost:3000",
+                    "https://betat.bet",
+                    "https://www.betat.bet")
+                .SetIsOriginAllowed(origin => 
+                    origin.StartsWith("http://localhost:") || 
+                    origin.EndsWith(".vercel.app") ||
+                    origin == "https://betat.bet" ||
+                    origin == "https://www.betat.bet"
+                )
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
