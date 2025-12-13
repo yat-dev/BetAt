@@ -12,6 +12,10 @@ public interface IBetRepository
     
     Task<Bet?> GetByIdAsync(int id, int userId);
     
+    int GetCountByMatchIdAsync(int matchId);
+    
+    Task<bool> IsMatchHasBetAsync(int matchId);
+    
     Task<Bet> AddAsync(Bet bet);
     
     Task UpdateAsync(Bet bet);

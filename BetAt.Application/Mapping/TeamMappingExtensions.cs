@@ -1,3 +1,5 @@
+using BetAt.Application.Dtos.Teams;
+
 namespace BetAt.Application.Mapping;
 
 public static class TeamMappingExtensions

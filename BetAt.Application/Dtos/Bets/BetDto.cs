@@ -1,3 +1,5 @@
+using BetAt.Application.Dtos.Matches;
+
 namespace BetAt.Application.Dtos;
 
 public class BetDto

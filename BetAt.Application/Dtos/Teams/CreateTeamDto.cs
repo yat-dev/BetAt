@@ -1,10 +1,10 @@
-namespace BetAt.Application.Dtos;
+namespace BetAt.Application.Dtos.Teams;
 
-public class TeamDto
+public class CreateTeamDto
 {
-    public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string ShortName { get; set; } = string.Empty;
     public string? LogoUrl { get; set; }
     public string? Country { get; set; } = string.Empty;
+    public int? ExternalApiId { get; set; }
 }

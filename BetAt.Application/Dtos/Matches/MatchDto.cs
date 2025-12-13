@@ -1,6 +1,7 @@
+using BetAt.Application.Dtos.Teams;
 using BetAt.Application.Dtos.Venues;
 
-namespace BetAt.Application.Dtos;
+namespace BetAt.Application.Dtos.Matches;
 
 public class MatchDto
 {
@@ -13,4 +14,6 @@ public class MatchDto
     public int? HomeScore { get; set; }
     public int? AwayScore { get; set; }
     public VenueDto? Venue { get; set; }
+    public string StatusLabel { get; set; } = string.Empty;
+    public int BetCount { get; set; }
 }

@@ -63,6 +63,16 @@ public class BetRepository(BetAtDbContext context) : IBetRepository
         return res;
     }
 
+    public int GetCountByMatchIdAsync(int matchId)
+    {
+        return context.Bets.Select(m => m.MatchId == matchId).ToList().Count;
+    }
+
+    public Task<bool> IsMatchHasBetAsync(int matchId)
+    {
+        return context.Bets.AnyAsync(b => b.MatchId == matchId && b.IsProcessed && b.PointsEarned > 0);
+    }
+
     public async Task<Bet> AddAsync(Bet bet)
     {
         context.Bets.Add(bet);

@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using BetAt.Application.Dtos;
+using BetAt.Application.Dtos.Matches;
 using BetAt.Application.Features.Matches.Queries;
 
 namespace BetAt.Api.Controllers;

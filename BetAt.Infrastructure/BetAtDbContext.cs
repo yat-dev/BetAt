@@ -19,6 +19,10 @@ public class BetAtDbContext : DbContext
     public DbSet<BetRule> BetRules { get; set; }
     
     public DbSet<Notification> Notifications { get; set; }
+    
+    public DbSet<Venue> Venue { get; set; }
+    
+    public DbSet<Team> Team { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

@@ -1,4 +1,5 @@
 using BetAt.Application.Common.Exceptions;
+using BetAt.Application.Dtos.Matches;
 using BetAt.Application.Dtos.Venues;
 
 namespace BetAt.Application.Mapping;
